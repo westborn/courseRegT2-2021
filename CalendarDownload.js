@@ -1,31 +1,4 @@
 /**
- * Get a list of all the users Calendars
- * @returns {object} containing the summary and id of each calendar found
- */
-function getCalendarList() {
-  var calendars
-  let pageToken
-  const result = []
-  do {
-    calendars = Calendar.CalendarList.list({
-      maxResults: 100,
-      pageToken: pageToken,
-    })
-    if (calendars.items && calendars.items.length > 0) {
-      for (let i = 0; i < calendars.items.length; i++) {
-        const calendar = calendars.items[i]
-        result.push({ summary: calendar.summary, id: calendar.id })
-        //        console.log('%s (ID: %s)', calendar.summary, calendar.id)
-      }
-    } else {
-      console.log('No calendars found.')
-    }
-    pageToken = calendars.nextPageToken
-  } while (pageToken)
-  return result
-}
-
-/**
  * get all the events for the term from a calendar and write them to the "CalendarImport" sheet
  * @param {number} term number (1 - 4)
  * @param {id} calendarId of the calendar to retrieve events from

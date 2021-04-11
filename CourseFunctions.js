@@ -450,8 +450,23 @@ function createCourseDetails() {
           sortedSessions[index].contact.toString().toLowerCase() === member.memberName.toString().toLowerCase()
       ) || {}
 
-    const ifCostExists = getWordAfter(sortedSessions[index].description, 'Cost:')
-    const cost = ifCostExists != '' ? ifCostExists : 'Nil'
+    // Check to see if "Cost:" is in description and get the amount - else Zero
+    let cost = getWordAfter(sortedSessions[index].description, 'Cost:')
+    var regex = /[+-]?\d+(\.\d+)?/g
+    if (cost && cost.match(regex) != null) {
+      var floats = cost.match(regex).map(function (v) {
+        return parseFloat(v)
+      })
+      cost = floats
+    } else {
+      cost = 0
+    }
+
+    const days = sortedSessions[index].daysScheduled
+    const dates = sortedSessions[index].datesScheduled
+
+    const numberOfSessions = (dates.match(/,/g) || []).length + 1
+    const courseCost = cost * numberOfSessions
 
     return {
       summary: sortedSessions[index].summary,
@@ -459,14 +474,15 @@ function createCourseDetails() {
       startDate,
       closeDate,
       presenter: sortedSessions[index].presenter,
-      days: sortedSessions[index].daysScheduled,
-      dates: sortedSessions[index].datesScheduled,
+      days,
+      dates,
       time,
       location: sortedSessions[index].location || 'Zoom online',
       description: sortedSessions[index].description,
       min: getWordAfter(sortedSessions[index].description, 'Min:'),
       max: getWordAfter(sortedSessions[index].description, 'Max:'),
       cost,
+      courseCost,
       phone: member.mobile || '',
       email: member.email || '',
       contact: sortedSessions[index].contact || 'No Contact',

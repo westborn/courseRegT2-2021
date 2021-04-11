@@ -14,7 +14,7 @@
     git push -u origin main
 ```
 
-2. Make a copy of Google Drive files to the new "Term" folder
+2. Make a copy of Google Drive files to the new 'Term' folder
 
 ```
     files to copy/move examples:
@@ -43,3 +43,13 @@
     ```
 
     Update the entry in clasp.json with the new script ID
+
+4.  Update Enrolment form linking
+
+    Open the form from above  
+    Select "responses"  
+    Use the "3 dots" and select response destination.  
+    Select "Create a new Spreadsheet"
+
+    Copy the URL from the form addres bar  
+    Update the 'Code.gs' file to contain the correct file ID for the new Enrolments form
