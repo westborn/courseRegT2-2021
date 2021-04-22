@@ -175,7 +175,7 @@ function courseDetailToSheet(course, outputTo) {
       day: 'numeric',
     })
   rich = SpreadsheetApp.newRichTextValue()
-  rich.setText(cell).setTextStyle(bodyFontSize).setLinkUrl('https://bermagui.u3anet.org.au/enrol')
+  rich.setText(cell).setTextStyle(bodyFontSize).setLinkUrl('https://bermagui.u3anet.org.au/enrolment')
   outputTo
     .offset(0, 2)
     .setRichTextValue(rich.build())
@@ -749,7 +749,7 @@ function buildDB() {
   pivotValue1.setDisplayName('numberCourses')
   const pivotGroup1 = pivotTable1.addRowGroup(2)
 
-  const pivotTable2 = dbSheet.getRange('H12').createPivotTable(sourceData)
+  const pivotTable2 = dbSheet.getRange('I12').createPivotTable(sourceData)
   const pivotValue2 = pivotTable2.addPivotValue(3, SpreadsheetApp.PivotTableSummarizeFunction.COUNTA)
   pivotValue2.setDisplayName('numberAttendees')
   const pivotGroup2 = pivotTable2.addRowGroup(3)
